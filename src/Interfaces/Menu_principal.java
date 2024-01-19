@@ -35,11 +35,11 @@ public class Menu_principal extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         Fondo = new Fondo();
         jPanel1 = new Fondo();
-        cargargrafo = new javax.swing.JButton();
-        Nuevasimulacion = new javax.swing.JButton();
         aggciudad = new javax.swing.JButton();
-        savegrafo = new javax.swing.JButton();
-        eliminarciudad = new javax.swing.JButton();
+        aggciudad1 = new javax.swing.JButton();
+        aggciudad2 = new javax.swing.JButton();
+        aggciudad3 = new javax.swing.JButton();
+        aggciudad4 = new javax.swing.JButton();
 
         jButton7.setText("Guardar Grafo");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -66,74 +66,77 @@ public class Menu_principal extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         Fondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        cargargrafo.setBackground(new java.awt.Color(102, 51, 0));
-        cargargrafo.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
-        cargargrafo.setForeground(new java.awt.Color(51, 51, 51));
-        cargargrafo.setText("Cargar Grafo");
-        cargargrafo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cargargrafoActionPerformed(evt);
-            }
-        });
-        Fondo.add(cargargrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 180, 39));
-
-        Nuevasimulacion.setBackground(new java.awt.Color(102, 51, 0));
-        Nuevasimulacion.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
-        Nuevasimulacion.setForeground(new java.awt.Color(51, 51, 51));
-        Nuevasimulacion.setText("Nueva Simulacion");
-        Fondo.add(Nuevasimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 380, 40));
-
-        aggciudad.setBackground(new java.awt.Color(102, 51, 0));
+        aggciudad.setBackground(new java.awt.Color(22, 19, 15));
         aggciudad.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
-        aggciudad.setForeground(new java.awt.Color(51, 51, 51));
-        aggciudad.setText("Agregar ciudad");
+        aggciudad.setForeground(new java.awt.Color(132, 107, 82));
+        aggciudad.setText("Nueva Simulacion");
         aggciudad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aggciudadActionPerformed(evt);
             }
         });
-        Fondo.add(aggciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 180, 39));
+        Fondo.add(aggciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 370, 39));
 
-        savegrafo.setBackground(new java.awt.Color(102, 51, 0));
-        savegrafo.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
-        savegrafo.setForeground(new java.awt.Color(51, 51, 51));
-        savegrafo.setText("Guardar Grafo");
-        savegrafo.addActionListener(new java.awt.event.ActionListener() {
+        aggciudad1.setBackground(new java.awt.Color(22, 19, 15));
+        aggciudad1.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
+        aggciudad1.setForeground(new java.awt.Color(102, 102, 102));
+        aggciudad1.setText("Eliminar Ciudad");
+        aggciudad1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                savegrafoActionPerformed(evt);
+                aggciudad1ActionPerformed(evt);
             }
         });
-        Fondo.add(savegrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 280, 180, 39));
+        Fondo.add(aggciudad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 180, 39));
 
-        eliminarciudad.setBackground(new java.awt.Color(102, 51, 0));
-        eliminarciudad.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
-        eliminarciudad.setForeground(new java.awt.Color(51, 51, 51));
-        eliminarciudad.setText("Eliminar Ciudad");
-        eliminarciudad.addActionListener(new java.awt.event.ActionListener() {
+        aggciudad2.setBackground(new java.awt.Color(22, 19, 15));
+        aggciudad2.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
+        aggciudad2.setForeground(new java.awt.Color(102, 102, 102));
+        aggciudad2.setText("Guardar Grafo");
+        aggciudad2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarciudadActionPerformed(evt);
+                aggciudad2ActionPerformed(evt);
             }
         });
-        Fondo.add(eliminarciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, 180, 39));
+        Fondo.add(aggciudad2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 180, 39));
+
+        aggciudad3.setBackground(new java.awt.Color(22, 19, 15));
+        aggciudad3.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
+        aggciudad3.setForeground(new java.awt.Color(102, 102, 102));
+        aggciudad3.setText("Agregar ciudad");
+        aggciudad3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aggciudad3ActionPerformed(evt);
+            }
+        });
+        Fondo.add(aggciudad3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 180, 39));
+
+        aggciudad4.setBackground(new java.awt.Color(22, 19, 15));
+        aggciudad4.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
+        aggciudad4.setForeground(new java.awt.Color(102, 102, 102));
+        aggciudad4.setText("Cargar Grafo");
+        aggciudad4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aggciudad4ActionPerformed(evt);
+            }
+        });
+        Fondo.add(aggciudad4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 180, 39));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+            .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cargargrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargargrafoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cargargrafoActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
@@ -147,13 +150,21 @@ public class Menu_principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void savegrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savegrafoActionPerformed
+    private void aggciudad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggciudad1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_savegrafoActionPerformed
+    }//GEN-LAST:event_aggciudad1ActionPerformed
 
-    private void eliminarciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarciudadActionPerformed
+    private void aggciudad2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggciudad2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_eliminarciudadActionPerformed
+    }//GEN-LAST:event_aggciudad2ActionPerformed
+
+    private void aggciudad3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggciudad3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aggciudad3ActionPerformed
+
+    private void aggciudad4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggciudad4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aggciudad4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,14 +203,14 @@ public class Menu_principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Fondo;
-    private javax.swing.JButton Nuevasimulacion;
     private javax.swing.JButton aggciudad;
-    private javax.swing.JButton cargargrafo;
-    private javax.swing.JButton eliminarciudad;
+    private javax.swing.JButton aggciudad1;
+    private javax.swing.JButton aggciudad2;
+    private javax.swing.JButton aggciudad3;
+    private javax.swing.JButton aggciudad4;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton savegrafo;
     // End of variables declaration//GEN-END:variables
 
   class Fondo extends JPanel{
