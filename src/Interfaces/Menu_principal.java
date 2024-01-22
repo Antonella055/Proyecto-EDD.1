@@ -4,8 +4,16 @@
  */
 package Interfaces;
 
+import Estructuras.Archivo;
+import Grafo.Grafo;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -14,12 +22,17 @@ import javax.swing.JPanel;
  * @author Antonella
  */
 public class Menu_principal extends javax.swing.JFrame {
-
+    boolean archivoSeleccionado=false;
     /**
      * Creates new form Menu_principal
      */
     public Menu_principal() {
         initComponents();
+         newsimulacion.setEnabled(false);
+         Cargargrafo.setEnabled(false);
+         SvGrafo.setEnabled(false);
+         addciudad.setEnabled(false);
+         delciudad.setEnabled(false);
     }
 
     /**
@@ -35,11 +48,12 @@ public class Menu_principal extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         Fondo = new Fondo();
         jPanel1 = new Fondo();
-        aggciudad = new javax.swing.JButton();
-        aggciudad1 = new javax.swing.JButton();
-        aggciudad2 = new javax.swing.JButton();
-        aggciudad3 = new javax.swing.JButton();
-        aggciudad4 = new javax.swing.JButton();
+        newsimulacion = new javax.swing.JButton();
+        delciudad = new javax.swing.JButton();
+        SvGrafo = new javax.swing.JButton();
+        addciudad = new javax.swing.JButton();
+        Cargargrafo = new javax.swing.JButton();
+        CargarArchivo = new javax.swing.JButton();
 
         jButton7.setText("Guardar Grafo");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -66,72 +80,82 @@ public class Menu_principal extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         Fondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        aggciudad.setBackground(new java.awt.Color(22, 19, 15));
-        aggciudad.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
-        aggciudad.setForeground(new java.awt.Color(132, 107, 82));
-        aggciudad.setText("Nueva Simulacion");
-        aggciudad.addActionListener(new java.awt.event.ActionListener() {
+        newsimulacion.setBackground(new java.awt.Color(22, 19, 15));
+        newsimulacion.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
+        newsimulacion.setForeground(new java.awt.Color(132, 107, 82));
+        newsimulacion.setText("Nueva Simulacion");
+        newsimulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aggciudadActionPerformed(evt);
+                newsimulacionActionPerformed(evt);
             }
         });
-        Fondo.add(aggciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 370, 39));
+        Fondo.add(newsimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 370, 39));
 
-        aggciudad1.setBackground(new java.awt.Color(22, 19, 15));
-        aggciudad1.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
-        aggciudad1.setForeground(new java.awt.Color(102, 102, 102));
-        aggciudad1.setText("Eliminar Ciudad");
-        aggciudad1.addActionListener(new java.awt.event.ActionListener() {
+        delciudad.setBackground(new java.awt.Color(22, 19, 15));
+        delciudad.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
+        delciudad.setForeground(new java.awt.Color(102, 102, 102));
+        delciudad.setText("Eliminar Ciudad");
+        delciudad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aggciudad1ActionPerformed(evt);
+                delciudadActionPerformed(evt);
             }
         });
-        Fondo.add(aggciudad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 180, 39));
+        Fondo.add(delciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, 180, 39));
 
-        aggciudad2.setBackground(new java.awt.Color(22, 19, 15));
-        aggciudad2.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
-        aggciudad2.setForeground(new java.awt.Color(102, 102, 102));
-        aggciudad2.setText("Guardar Grafo");
-        aggciudad2.addActionListener(new java.awt.event.ActionListener() {
+        SvGrafo.setBackground(new java.awt.Color(22, 19, 15));
+        SvGrafo.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
+        SvGrafo.setForeground(new java.awt.Color(102, 102, 102));
+        SvGrafo.setText("Guardar Grafo");
+        SvGrafo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aggciudad2ActionPerformed(evt);
+                SvGrafoActionPerformed(evt);
             }
         });
-        Fondo.add(aggciudad2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 180, 39));
+        Fondo.add(SvGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 180, 39));
 
-        aggciudad3.setBackground(new java.awt.Color(22, 19, 15));
-        aggciudad3.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
-        aggciudad3.setForeground(new java.awt.Color(102, 102, 102));
-        aggciudad3.setText("Agregar ciudad");
-        aggciudad3.addActionListener(new java.awt.event.ActionListener() {
+        addciudad.setBackground(new java.awt.Color(22, 19, 15));
+        addciudad.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
+        addciudad.setForeground(new java.awt.Color(102, 102, 102));
+        addciudad.setText("Agregar ciudad");
+        addciudad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aggciudad3ActionPerformed(evt);
+                addciudadActionPerformed(evt);
             }
         });
-        Fondo.add(aggciudad3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 180, 39));
+        Fondo.add(addciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 180, 39));
 
-        aggciudad4.setBackground(new java.awt.Color(22, 19, 15));
-        aggciudad4.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
-        aggciudad4.setForeground(new java.awt.Color(102, 102, 102));
-        aggciudad4.setText("Cargar Grafo");
-        aggciudad4.addActionListener(new java.awt.event.ActionListener() {
+        Cargargrafo.setBackground(new java.awt.Color(22, 19, 15));
+        Cargargrafo.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
+        Cargargrafo.setForeground(new java.awt.Color(102, 102, 102));
+        Cargargrafo.setText("Cargar Grafo");
+        Cargargrafo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aggciudad4ActionPerformed(evt);
+                CargargrafoActionPerformed(evt);
             }
         });
-        Fondo.add(aggciudad4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 180, 39));
+        Fondo.add(Cargargrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 180, 39));
+
+        CargarArchivo.setBackground(new java.awt.Color(12, 7, 1));
+        CargarArchivo.setFont(new java.awt.Font("Artifakt Element Light", 0, 12)); // NOI18N
+        CargarArchivo.setForeground(new java.awt.Color(169, 155, 141));
+        CargarArchivo.setText("Cargar Archivo");
+        CargarArchivo.setBorder(new javax.swing.border.MatteBorder(null));
+        CargarArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CargarArchivoActionPerformed(evt);
+            }
+        });
+        Fondo.add(CargarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 110, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Fondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(Fondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -142,29 +166,54 @@ public class Menu_principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void aggciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggciudadActionPerformed
+    private void newsimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newsimulacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_aggciudadActionPerformed
+    }//GEN-LAST:event_newsimulacionActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void aggciudad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggciudad1ActionPerformed
+    private void delciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delciudadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_aggciudad1ActionPerformed
+    }//GEN-LAST:event_delciudadActionPerformed
 
-    private void aggciudad2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggciudad2ActionPerformed
+    private void SvGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SvGrafoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_aggciudad2ActionPerformed
+    }//GEN-LAST:event_SvGrafoActionPerformed
 
-    private void aggciudad3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggciudad3ActionPerformed
+    private void addciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addciudadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_aggciudad3ActionPerformed
+    }//GEN-LAST:event_addciudadActionPerformed
 
-    private void aggciudad4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggciudad4ActionPerformed
+    private void CargargrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargargrafoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_aggciudad4ActionPerformed
+    }//GEN-LAST:event_CargargrafoActionPerformed
+
+    private void CargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarArchivoActionPerformed
+        // TODO add your handling code here:
+        Path file= Paths.get("recorridos.txt");
+        try {
+            Files.delete(file);
+        } catch (IOException ex) {
+            
+        } 
+        Path doc= Paths.get("recorrido.txt");
+         try {
+            Files.delete(doc);
+        } catch (IOException ex) {
+            
+        } 
+         new Archivo().abrirArchivo();
+         archivoSeleccionado=true;
+         
+         
+         newsimulacion.setEnabled(true);
+         Cargargrafo.setEnabled(true);
+         SvGrafo.setEnabled(true);
+         addciudad.setEnabled(true);
+         delciudad.setEnabled(true);
+    }//GEN-LAST:event_CargarArchivoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,15 +251,16 @@ public class Menu_principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CargarArchivo;
+    private javax.swing.JButton Cargargrafo;
     private javax.swing.JPanel Fondo;
-    private javax.swing.JButton aggciudad;
-    private javax.swing.JButton aggciudad1;
-    private javax.swing.JButton aggciudad2;
-    private javax.swing.JButton aggciudad3;
-    private javax.swing.JButton aggciudad4;
+    private javax.swing.JButton SvGrafo;
+    private javax.swing.JButton addciudad;
+    private javax.swing.JButton delciudad;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton newsimulacion;
     // End of variables declaration//GEN-END:variables
 
   class Fondo extends JPanel{

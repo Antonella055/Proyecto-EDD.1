@@ -4,6 +4,7 @@
  */
 package Estructuras;
 
+
 /**
  *
  * @author Antonella
@@ -14,9 +15,9 @@ public class ArrayList<E> {
     private static final int capacidad_inicial=10;
     
     //Constructor 
-    public ArrayList(Object[] elementos, int size){
+    public ArrayList(){
         this.elementos= (E[]) new Object[capacidad_inicial]; //inicializar el arreglo elementos con la capacidad inicial
-        this.size=size;//establecer el tamño inicial
+        this.size=0;//establecer el tamño inicial
     }
     
     //agregar elemento al array
@@ -73,4 +74,11 @@ public class ArrayList<E> {
             }
         }
         return false;
-    }}
+    }
+
+    public int size() {
+      return size;
+    }
+
+
+}
