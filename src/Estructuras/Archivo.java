@@ -4,7 +4,8 @@
  */
 package Estructuras;
 
-import Grafo.Nodo;
+
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,12 +22,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Archivo {
     public static File archivo_seleccionado;
-    public static int nodoOrigen;
-    public static int nodoDestino;
-    public static double peso;
+
     
-    
-    public void abrirArchivo(){
+    public void abrir(){
         JFileChooser fileChooser= new JFileChooser();
         JTextArea text= new JTextArea();
         text.setEditable(false);
@@ -51,25 +49,27 @@ public class Archivo {
         }
     }
     
-    public static ArrayList<String>leerArchivo() throws FileNotFoundException, IOException{
-        ArrayList<String>contenido=new ArrayList();
-        
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo_seleccionado))){
+    public void leerArchivo(){
+   
+        ListaDobleEnlazada ciudades=new ListaDobleEnlazada();
+          ListaDobleEnlazada conexiones=new ListaDobleEnlazada();
+        try{
+            BufferedReader leer= new BufferedReader(new FileReader(archivo_seleccionado));
             String linea;
-            while ((linea=br.readLine()) !=null){
-                contenido.insertar(linea);
-                String[] partes=linea.split(",");
-                if (partes.length==3){
-                    nodoOrigen=Integer.parseInt(partes[0]);
-                    nodoDestino=Integer.parseInt(partes[1]);
-                    peso=Double.parseDouble(partes[2]);
+            boolean ciudad_encontrada=true;
+            while ((linea = leer.readLine()) != null) {
+                if(linea.equals("aristas")){
+                    ciudad_encontrada=false;
+                    continue;}
+                if(ciudad_encontrada){
+                    ciudades.agregarFinal(linea);
+                }else{
+                    conexiones.agregarFinal(linea);
                 }
-                
-            }
-        }catch  (IOException e){
-            e.printStackTrace();
+            }leer.close();
+        }catch(IOException e){
+             e.printStackTrace();
         }
-    return contenido;
     }
-    
+       
 }

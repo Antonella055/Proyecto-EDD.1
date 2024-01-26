@@ -28,11 +28,13 @@ public class Menu_principal extends javax.swing.JFrame {
      */
     public Menu_principal() {
         initComponents();
+        
          newsimulacion.setEnabled(false);
          Cargargrafo.setEnabled(false);
          SvGrafo.setEnabled(false);
          addciudad.setEnabled(false);
          delciudad.setEnabled(false);
+
     }
 
     /**
@@ -204,7 +206,7 @@ public class Menu_principal extends javax.swing.JFrame {
         } catch (IOException ex) {
             
         } 
-         new Archivo().abrirArchivo();
+         new Archivo().abrir();
          archivoSeleccionado=true;
          
          
@@ -244,6 +246,7 @@ public class Menu_principal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Menu_principal().setVisible(true);
             }

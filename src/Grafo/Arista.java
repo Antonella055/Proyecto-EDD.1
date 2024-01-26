@@ -4,8 +4,6 @@
  */
 package Grafo;
 
-import Grafo.Nodo;
-
 /**
  *
  * @author Antonella

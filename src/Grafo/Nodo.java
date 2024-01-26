@@ -7,14 +7,17 @@ package Grafo;
 /**
  *
  * @author Antonella
+ * @param <E>
  */
 public class Nodo <E>{
     E valor;
-    Nodo<E> siguiente;
+    Nodo<E> next;
+    Nodo<E>before;
     
     public Nodo(E valor){
         this.valor= valor;
-        this.siguiente=null;
+        this.next=null;
+        this.before=null;
     }
 }
 
