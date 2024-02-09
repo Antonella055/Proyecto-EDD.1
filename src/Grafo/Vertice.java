@@ -4,17 +4,19 @@
  */
 package Grafo;
 
+import Estructuras.ListaArray;
+
 /**
  *
  * @author Antonella
  * @param <E>
  */
-public class Nodo <E>{
-    E valor;
-    Nodo<E> next;
-    Nodo<E>before;
+public class Vertice {
+    int valor;
+    Vertice next;
+    Vertice before;
     
-    public Nodo(E valor){
+    public Vertice(int valor){
         this.valor= valor;
         this.next=null;
         this.before=null;

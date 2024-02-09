@@ -5,28 +5,29 @@
 package Interfaces;
 
 import Estructuras.Archivo;
-import Grafo.Grafo;
+import Estructuras.HashMap;
+import Estructuras.ListaArray;
+import Estructuras.Matriz;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Antonella
  */
-public class Menu_principal extends javax.swing.JFrame {
+public class Menu extends javax.swing.JFrame {
     boolean archivoSeleccionado=false;
     /**
      * Creates new form Menu_principal
      */
-    public Menu_principal() {
+    public Menu() {
         initComponents();
         
          newsimulacion.setEnabled(false);
@@ -34,7 +35,7 @@ public class Menu_principal extends javax.swing.JFrame {
          SvGrafo.setEnabled(false);
          addciudad.setEnabled(false);
          delciudad.setEnabled(false);
-
+         
     }
 
     /**
@@ -75,6 +76,8 @@ public class Menu_principal extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         setResizable(false);
 
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -85,13 +88,13 @@ public class Menu_principal extends javax.swing.JFrame {
         newsimulacion.setBackground(new java.awt.Color(22, 19, 15));
         newsimulacion.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
         newsimulacion.setForeground(new java.awt.Color(132, 107, 82));
-        newsimulacion.setText("Nueva Simulacion");
+        newsimulacion.setText("Iniciar Simulacion");
         newsimulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newsimulacionActionPerformed(evt);
             }
         });
-        Fondo.add(newsimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 370, 39));
+        Fondo.add(newsimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 360, 40));
 
         delciudad.setBackground(new java.awt.Color(22, 19, 15));
         delciudad.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
@@ -102,18 +105,18 @@ public class Menu_principal extends javax.swing.JFrame {
                 delciudadActionPerformed(evt);
             }
         });
-        Fondo.add(delciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, 180, 39));
+        Fondo.add(delciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 180, 170, 40));
 
         SvGrafo.setBackground(new java.awt.Color(22, 19, 15));
         SvGrafo.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
         SvGrafo.setForeground(new java.awt.Color(102, 102, 102));
-        SvGrafo.setText("Guardar Grafo");
+        SvGrafo.setText("Guardar ");
         SvGrafo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SvGrafoActionPerformed(evt);
             }
         });
-        Fondo.add(SvGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 180, 39));
+        Fondo.add(SvGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, 170, 40));
 
         addciudad.setBackground(new java.awt.Color(22, 19, 15));
         addciudad.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
@@ -124,7 +127,7 @@ public class Menu_principal extends javax.swing.JFrame {
                 addciudadActionPerformed(evt);
             }
         });
-        Fondo.add(addciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 180, 39));
+        Fondo.add(addciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 170, 40));
 
         Cargargrafo.setBackground(new java.awt.Color(22, 19, 15));
         Cargargrafo.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
@@ -135,7 +138,7 @@ public class Menu_principal extends javax.swing.JFrame {
                 CargargrafoActionPerformed(evt);
             }
         });
-        Fondo.add(Cargargrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 180, 39));
+        Fondo.add(Cargargrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 170, 40));
 
         CargarArchivo.setBackground(new java.awt.Color(12, 7, 1));
         CargarArchivo.setFont(new java.awt.Font("Artifakt Element Light", 0, 12)); // NOI18N
@@ -147,17 +150,17 @@ public class Menu_principal extends javax.swing.JFrame {
                 CargarArchivoActionPerformed(evt);
             }
         });
-        Fondo.add(CargarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 110, 20));
+        Fondo.add(CargarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 280, 100, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
+            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
         );
 
         pack();
@@ -189,7 +192,32 @@ public class Menu_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_addciudadActionPerformed
 
     private void CargargrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargargrafoActionPerformed
-        // TODO add your handling code here:
+        Grafo x =new Grafo();
+        x.setVisible(true);
+        
+       Archivo a=new Archivo();
+       HashMap<String, ListaArray> relaciones = a.leerRelaciones();
+       ListaArray<String> ciudades= a.obtCiudades(relaciones);
+       Matriz b= new Matriz();
+       int[][] matriz=b.Crear(relaciones, ciudades);
+       b.imprimirMatriz(matriz);
+       
+         x.modelo=new DefaultTableModel();
+         x.modelo.addColumn("0");
+        for (int i = 0; i < ciudades.getSize(); i++) {
+            x.modelo.addColumn(ciudades.get(i));
+        }
+            for (int i = 0; i < matriz.length; i++) {
+            Object[] rowData= new Object[matriz[i].length+1];
+            rowData[0]=ciudades.get(i);
+            for (int j = 0; j < matriz[i].length; j++) {
+            rowData[j + 1] = matriz[i][j];
+    }
+    x.modelo.addRow(rowData);
+    
+    
+}
+      x.setModeloTabla(x.modelo);
     }//GEN-LAST:event_CargargrafoActionPerformed
 
     private void CargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarArchivoActionPerformed
@@ -234,13 +262,13 @@ public class Menu_principal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -248,7 +276,7 @@ public class Menu_principal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Menu_principal().setVisible(true);
+                new Menu().setVisible(true);
             }
         });
     }

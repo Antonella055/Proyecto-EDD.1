@@ -18,6 +18,14 @@ public class ListaDobleEnlazada {
         this.pLast =null;
         this.size = 0;
     }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
     
     public void agregarInicio(Object data){
         NodoLista newNodo=new NodoLista(data);
@@ -76,6 +84,7 @@ public class ListaDobleEnlazada {
          return false;
     }
     
+    //string.valueof
     public Object obtener(int indice){
         if (indice <0 || indice >= size) {
             throw new IndexOutOfBoundsException("indice fuera de rango");
@@ -86,4 +95,15 @@ public class ListaDobleEnlazada {
         }
         return aux.getData();
     }
+    
+    public boolean contiene(Object elemento) {
+    NodoLista actual = pFirst;
+    while (actual != null) {
+        if (actual.getData().equals(elemento)) {
+            return true;
+        }
+        actual = actual.getNext();
+    }
+    return false;
+}
 }

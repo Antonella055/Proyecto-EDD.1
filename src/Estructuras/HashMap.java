@@ -12,7 +12,7 @@ package Estructuras;
  */
 public class HashMap<K,V>{ //almacenara elementos en pares clave-valor
     private static final int capacidad_inicial=16;
-    private Entry<K,V>[] tabla;
+    public Entry<K,V>[] tabla;
     private int tamano;
 
     public HashMap() {
@@ -37,6 +37,7 @@ public class HashMap<K,V>{ //almacenara elementos en pares clave-valor
         tabla[indice]=nuevaEntrada; //establece la nueva entrada como la primera 
         tamano++; //incrementa el tamano del Hash
     }
+
     
     public V get (K clave){
          int indice= obtenerIndice(clave);
@@ -48,7 +49,7 @@ public class HashMap<K,V>{ //almacenara elementos en pares clave-valor
             }
             entrada= entrada.siguiente;
         }
-        return null;
+        return (V) clave;
     }
     
     public void remover(K clave){
@@ -105,4 +106,40 @@ public class HashMap<K,V>{ //almacenara elementos en pares clave-valor
         this.siguiente = siguiente;
     }
 }
+    
+    public void imprimirHashMap(HashMap<K, V> hashMap) {
+    System.out.println("Contenido:");
+    for (int i = 0; i < tabla.length; i++) {
+        Entry<K, V> entrada = tabla[i];
+        while (entrada != null) {
+            System.out.println("Clave: " + entrada.clave + ", Valor: " + entrada.valor);
+            entrada = entrada.siguiente;
+        }
+    }
+}
+    
+    public Set<K>KeySet(){
+        Set<K> llaves=new Set<>();
+        for (Entry<K,V> entrada:tabla){
+            while(entrada != null){
+                llaves.agg(entrada.clave);
+                entrada= entrada.siguiente;
+            }
+        }return llaves;
+    }
+
+    //respalda las operaciones del hash para mantener una copia de las claves presentes en el mapa
+    private class Set<E>{
+        private final ListaArray<E> elementos;
+
+        public Set() {
+            this.elementos = new ListaArray(10);
+        }
+        
+        public void agg(E elemento){
+            elementos.insertar(elemento);
+        }
+        
+    }
+    
 }

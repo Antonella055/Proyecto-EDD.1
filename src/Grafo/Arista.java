@@ -4,28 +4,32 @@
  */
 package Grafo;
 
+
+
 /**
  *
  * @author Antonella
  */
-class Arista {
-    private Nodo origen;
-    private Nodo destino;
-    private double distancia;
+public class Arista {
+    private final Vertice origen;
+    private final Vertice destino;
+    
 
-    public Arista(Nodo origen, Nodo destino, double distancia) {
-        this.origen = origen;
-        this.destino = destino;
-        this.distancia = distancia;
+    public Arista(Object origen, Object destino) {
+        this.origen = (Vertice) origen;
+        this.destino = (Vertice)  destino;
+       
     }
 
-    public Nodo getOrigen() {
+    public Vertice getOrigen() {
         return origen;
     }
 
-    public Nodo getDestino() {
+    public Vertice getDestino() {
         return destino;
     }
     
     
-}
+    }
+        
+
