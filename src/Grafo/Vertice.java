@@ -4,22 +4,38 @@
  */
 package Grafo;
 
-import Estructuras.ListaArray;
+
 
 /**
  *
  * @author Antonella
- * @param <E>
  */
 public class Vertice {
     int valor;
     Vertice next;
     Vertice before;
     
+    
     public Vertice(int valor){
         this.valor= valor;
         this.next=null;
         this.before=null;
     }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public Vertice getNext() {
+        return next;
+    }
+
+    public Vertice getBefore() {
+        return before;
+    }
+
+
+    
+    
 }
 

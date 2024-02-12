@@ -8,6 +8,7 @@ import Estructuras.Archivo;
 import Estructuras.HashMap;
 import Estructuras.ListaArray;
 import Estructuras.Matriz;
+import Grafo.Grafo;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
@@ -192,7 +193,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_addciudadActionPerformed
 
     private void CargargrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargargrafoActionPerformed
-        Grafo x =new Grafo();
+        GrafoVisual x =new GrafoVisual();
         x.setVisible(true);
         
        Archivo a=new Archivo();
@@ -201,6 +202,9 @@ public class Menu extends javax.swing.JFrame {
        Matriz b= new Matriz();
        int[][] matriz=b.Crear(relaciones, ciudades);
        b.imprimirMatriz(matriz);
+       new Grafo().construir(matriz);
+
+     
        
          x.modelo=new DefaultTableModel();
          x.modelo.addColumn("0");

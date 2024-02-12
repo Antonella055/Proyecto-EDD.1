@@ -13,11 +13,13 @@ package Grafo;
 public class Arista {
     private final Vertice origen;
     private final Vertice destino;
+    int distancia;
     
 
-    public Arista(Object origen, Object destino) {
+    public Arista(Object origen, Object destino,int distancia) {
         this.origen = (Vertice) origen;
         this.destino = (Vertice)  destino;
+        this.distancia = distancia;
        
     }
 
@@ -27,6 +29,10 @@ public class Arista {
 
     public Vertice getDestino() {
         return destino;
+    }
+
+    public int getdistancia() {
+        return distancia;
     }
     
     
