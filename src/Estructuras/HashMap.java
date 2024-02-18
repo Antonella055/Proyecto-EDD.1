@@ -7,43 +7,59 @@ package Estructuras;
 /**
  *
  * @author Antonella
- * @param <K>
- * @param <V>
+ * 
+ * Clase HashMap que representa una tabla hash que almacena elementos en pares clave-valor.
+ * @param <K> El tipo de claves almacenadas en el mapa 
+ * @param <V> el tipo de valores almacenados en el mapa 
  */
 public class HashMap<K,V>{ //almacenara elementos en pares clave-valor
     private static final int capacidad_inicial=16;
     public Entry<K,V>[] tabla;
     private int tamano;
-
+/**
+ * constructor de la clase 
+ */
     public HashMap() {
         this.tabla = new Entry[capacidad_inicial];
         this.tamano = 0;
     }
     
+    /**
+     *  Método para insertar un par clave-valor en el mapa
+     * Si la clave ya existe en el mapa, actualiza su valor
+     * 
+     * @param clave clave del par clave-valor a insertar
+     * @param valor valor del par clave-valor a insertar
+     */
     public void insertar (K clave, V valor){
         int indice= obtenerIndice(clave);
         Entry<K,V> entrada= tabla[indice]; //obt la primera entrda en la lista enlazda 
         
-        while (entrada !=null){ //recorre hasta el final o hasta encontrar una entrada con la misma clave
+        while (entrada !=null){ 
             if (entrada.clave.equals(clave)){
                 entrada.valor=valor;
                 return;
             }
             entrada= entrada.siguiente;
         }
-        //se crea una nv entrada con clave-valor proporcionados. 3r arg representa la siguiente  entrada en la lista 
+        
         Entry<K, V> nuevaEntrada = new Entry<>(clave, valor,entrada);
         nuevaEntrada.siguiente= tabla[indice];
-        tabla[indice]=nuevaEntrada; //establece la nueva entrada como la primera 
-        tamano++; //incrementa el tamano del Hash
+        tabla[indice]=nuevaEntrada; 
+        tamano++; 
     }
 
     
+    /**
+     * Método para obtener el valor asociado a una clave en el mapa
+     * @param clave  clave cuyo valor asociado se quiere obtener.
+     * @return  El valor asociado a la clave, o la clave si no se encuentra en el mapa
+     */
     public V get (K clave){
          int indice= obtenerIndice(clave);
-        Entry<K,V> entrada= tabla[indice]; //obt la primera entrda en la lista enlazda 
+        Entry<K,V> entrada= tabla[indice]; 
         
-        while (entrada !=null){ //recorre hasta el final o hasta encontrar una entrada con la misma clave
+        while (entrada !=null){ 
             if (entrada.clave.equals(clave)){
                 return entrada.valor;
             }
@@ -52,36 +68,57 @@ public class HashMap<K,V>{ //almacenara elementos en pares clave-valor
         return (V) clave;
     }
     
+    
+    /**
+     * Metodo para remover un par clave-valor del mapa 
+     * @param clave La clave del par clave-valor a remover 
+     */
     public void remover(K clave){
         int indice =obtenerIndice(clave);
         Entry<K,V> entrada=tabla[indice];
         Entry<K,V> previo=null; //recorrera la lista y almacenara el valor de la entrada anterior a nuesta entrada 
         
         while (entrada != null){
-            if (entrada.clave.equals(clave)){ //validar si la clave de la entrada actual es igual a la que se busca
-                if(previo ==null){ //valida si la entr actual es la primera en la lista
-                    tabla[indice]= entrada.siguiente; //actualiza el 1er elemnto de la lista en el indice calculado en el arreglo tabla al sig elemnto de la lista
+            if (entrada.clave.equals(clave)){ 
+                if(previo ==null){ 
+                    tabla[indice]= entrada.siguiente;
                 }else{
-                    //actualiza el campo sig de la entrada anterior para que apunte al sig elemnto de la lista, saltando la entrada actual
+                  
                     previo.siguiente= entrada.siguiente;
                 }
                 tamano--;
                 return;
             }
-            previo= entrada; //avanza al sig elemnto de la lista 
+            previo= entrada; 
             entrada= entrada.siguiente;
         }
     }
     
+    /** 
+     * Metodo para obtener el tamaño del mapa 
+     * @return tamaño 
+     */
     public int tamano(){
         return tamano;
     }
     
+    /**
+     *  Método privado para obtener el índice de una clave en la tabla
+     * 
+     * @param clave Clave del indice que se busca obtener 
+     * @return indice de la clave en la tabla 
+     */
     private int obtenerIndice(K clave) {
       int hashCode= clave.hashCode();// obtenemos el codigo hash de la clave proporcionada.
       return hashCode % tabla.length; //calcula el indice del arreglo 
     }
     
+    
+    /**
+     * Método para verificar si una clave está en el mapa
+     * @param clave La clave a verificar
+     * @return Verdadero si la clave está en el mapa, falso en caso contrario
+     */
     public boolean containsKey(K clave){
         int indice= obtenerIndice(clave);
         Entry<K,V> entrada= tabla[indice];
@@ -94,7 +131,11 @@ public class HashMap<K,V>{ //almacenara elementos en pares clave-valor
         return false;
     }
     
-    
+    /**
+     * Clase estatica Entry que representa yn par clave-valor en la tabla 
+     * @param <K> El tipo de las claves almacenadas en la entrada 
+     * @param <V> El tipo de los valores almacenados en la entrada 
+     */
     public static class Entry<K, V> { //representa un par clvae-valor en la tabla 
     K clave;
     V valor;
@@ -106,7 +147,10 @@ public class HashMap<K,V>{ //almacenara elementos en pares clave-valor
         this.siguiente = siguiente;
     }
 }
-    
+     /**
+     * Método para imprimir el contenido del mapa
+     * @param hashMap El mapa a imprimir
+     */
     public void imprimirHashMap(HashMap<K, V> hashMap) {
     System.out.println("Contenido:");
     for (int i = 0; i < tabla.length; i++) {
@@ -117,7 +161,10 @@ public class HashMap<K,V>{ //almacenara elementos en pares clave-valor
         }
     }
 }
-    
+    /**
+     * Metodo para obtener el conjunto de clavers en el mapa
+     * @return Un conjunto con las claves en el mapa
+     */
     public Set<K>KeySet(){
         Set<K> llaves=new Set<>();
         for (Entry<K,V> entrada:tabla){
@@ -128,7 +175,11 @@ public class HashMap<K,V>{ //almacenara elementos en pares clave-valor
         }return llaves;
     }
 
-    //respalda las operaciones del hash para mantener una copia de las claves presentes en el mapa
+    /**
+     * Clase privada Set que respalda las operaciones del mapa para mantener una copia de las claves presentes en el mapa
+     * 
+     * @param <E> El tipo de elementos almacenados en el conjunto
+     */
     private class Set<E>{
         private final ListaArray<E> elementos;
 

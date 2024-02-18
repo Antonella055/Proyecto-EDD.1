@@ -174,6 +174,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void newsimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newsimulacionActionPerformed
         // TODO add your handling code here:
+        new MenuSimulacion().setVisible(true);
     }//GEN-LAST:event_newsimulacionActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -202,8 +203,10 @@ public class Menu extends javax.swing.JFrame {
        Matriz b= new Matriz();
        int[][] matriz=b.Crear(relaciones, ciudades);
        b.imprimirMatriz(matriz);
-       new Grafo().construir(matriz);
-
+       Grafo grafo=new Grafo();
+               grafo.construir(matriz);
+               grafo.mostrarGrafo();
+ 
      
        
          x.modelo=new DefaultTableModel();

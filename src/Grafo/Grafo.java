@@ -14,24 +14,32 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.swing_viewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
-import org.graphstream.graph.Node;
+
 
 /**
- *
+*
  * @author Antonella
- * @param <E>
+ * @param <E> El tipo de elementos que se almacenarán en el grafo
+ * Clase Grafo, representa un grafo con vertices y aristas
  */
 public class Grafo<E> {
     private final ListaArray<Vertice> vertices;
     private final ListaArray<Arista> aristas;
     private final Graph graph;
-
+    
+    /**
+     * Constructor de la clase 
+     */
     public Grafo() {
         this.vertices = new ListaArray<>(100);
         this.aristas = new ListaArray<>(100);
         this.graph = new SingleGraph("MiGrafo");
     }
     
+    /**
+     *Funcion para construir el grafo mediante una matriz de adyacencia 
+     * @param matriz Matriz de adyancencia que representa el grafo 
+     */
     public void construir(int[][] matriz) {
         for (int i = 0; i < matriz.length; i++) {
             Vertice vertice = new Vertice(i + 1);
@@ -47,10 +55,13 @@ public class Grafo<E> {
                 }
             }
         }
-          mostrarGrafo();
+         
     }
     
-    
+    /**
+     * Funcion para agregar un vertice al grafo 
+     * @param vertice  vertice a agregar
+     */
     public void AgregarVertice(Vertice vertice){
       
             vertices.insertar(vertice);
@@ -61,16 +72,23 @@ public class Grafo<E> {
         
             
     }
+    
+    /**
+     * Metodo para agregar una arista al grafo
+     * @param arista arista a agregar 
+     */
     public void AgregarArista(Arista arista){
             aristas.insertar(arista);
             String idArista = arista.getOrigen().valor+ "-" + arista.getDestino().valor; // Crear un ID para la arista
-        graph.addEdge(idArista, Integer.toString(arista.getOrigen().valor), Integer.toString(arista.getDestino().valor),true); // Agrega la arista al grafo de GraphStream
+        graph.addEdge(idArista, Integer.toString(arista.getOrigen().valor), Integer.toString(arista.getDestino().valor)); // Agrega la arista al grafo de GraphStream
         graph.getEdge(idArista).setAttribute("ui.label", idArista + " (" + arista.getdistancia() + ")");
 }
           
-            
+    /**
+     * Metodo para graficar el grafo 
+     */ 
     public void mostrarGrafo() {
-        // Crea un visor de Swing para el grafo
+        // Crea un visor de Swing para el grafo //arreglar
         System.setProperty("org.graphstream.ui", "swing");
         Viewer viewer = graph.display();
         
@@ -84,6 +102,8 @@ public class Grafo<E> {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         viewer.enableAutoLayout();
+       
+            
         
             }
     

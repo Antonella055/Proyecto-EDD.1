@@ -8,21 +8,34 @@ import Estructuras.HashMap.Entry;
 
 
 /**
- *
+ *Esta clase representa una matriz de adyacencia para un grafo
  * @author Antonella
  */
-public class Matriz extends Archivo {
+public class Matriz {
     private static int [][]matriz;
    
-
+/**
+ * constructor de la clase 
+ */
     public Matriz() {
         this.matriz = null;
     }
 
+    /**
+     * metodo para obtener la matriz
+     * @return matriz de adyencia 
+     */
     public int[][] getMatriz() {
         return matriz;
     }
     
+    
+    /**
+     * Método para crear la matriz de adyacencia a partir de un HashMap de relaciones y una lista de ciudades
+     * @param relaciones El HashMap que contiene las relaciones entre las ciudades
+     * @param ciudades ciudades La lista de ciudades
+     * @return  matriz de adyacencia creada
+     */
     public int[][] Crear(HashMap<String, ListaArray> relaciones,ListaArray<String> ciudades) {
     int n = ciudades.getSize(); // Obtener el tamaño del HashMap
     matriz = new int[n][n];
@@ -67,6 +80,10 @@ public class Matriz extends Archivo {
     return matriz;
 }
 
+     /**
+     * metodo para imprimir la matriz
+     * @param matriz La matriz a imprimir
+     */
     public void imprimirMatriz(int[][] matriz) {
         
     for (int i = 0; i < matriz.length; i++) {
@@ -76,6 +93,11 @@ public class Matriz extends Archivo {
         System.out.println(); // Salto de línea al final de cada fila
     }
 }
+    
+    /**
+     * Metodo para obtener el tamaño de la matriz.
+     * @return el tamaño
+     */
     public int size(){
         return matriz.length;
     }

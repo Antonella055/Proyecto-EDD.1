@@ -5,6 +5,7 @@
 package Interfaces;
 
 
+import Grafo.Grafo;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -12,6 +13,7 @@ import java.awt.Image;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -34,6 +36,8 @@ public class GrafoVisual extends javax.swing.JFrame {
         setVisible(false);
         Matriz.setEnabled(false);
         Matriz.setRowSelectionAllowed(false);
+        Grafo.setVisible(true);
+        
         
     }
        public void setModeloTabla(DefaultTableModel modelo) {
@@ -43,14 +47,11 @@ public class GrafoVisual extends javax.swing.JFrame {
 
            
     }
+     
        public JPanel getPanel(){
         return Grafo;
     }
-       public void setPanel(ViewPanel viewPanel){
-           Grafo.add(viewPanel);
-           Grafo.revalidate();
-           Grafo.repaint();
-       }
+       
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -134,11 +135,11 @@ public class GrafoVisual extends javax.swing.JFrame {
         Grafo.setLayout(GrafoLayout);
         GrafoLayout.setHorizontalGroup(
             GrafoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 682, Short.MAX_VALUE)
+            .addGap(0, 720, Short.MAX_VALUE)
         );
         GrafoLayout.setVerticalGroup(
             GrafoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 521, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -146,8 +147,8 @@ public class GrafoVisual extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Grafo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Grafo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(

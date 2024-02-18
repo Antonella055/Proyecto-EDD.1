@@ -95,16 +95,10 @@ public class Archivo {
                      mapaAristas.get(origen).insertar(destino);
                 
                      
-//                     ListaArray lista = mapaAristas.get(origen);
-//                            if (lista != null) {
-//                                for (int i = 0; i < lista.getSize(); i++) {
-//                                    System.out.println("Clave:"+origen+"valor: "+lista.get(i));
-//                            }
-//                               
-//                            }
+
                 }
             }
-    }    //mapaAristas.imprimirHashMap(mapaAristas);
+    }    
         
   
     } catch (IOException e) {
@@ -129,9 +123,11 @@ public class Archivo {
                 entrada=entrada.siguiente;
             }
         }
-        ciudades.print();
+        
     return ciudades;
     }
+    
+   
     
     /**
      * Obtiene la distancia entre dos ciudades a partir de las relaciones proporcionadas.

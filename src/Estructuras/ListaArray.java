@@ -52,7 +52,10 @@ public class ListaArray<T>{
         this.array = array;
     }
 
-    
+    /**
+     * Método para insertar un elemento al inicio de la lista
+     * @param element elemento a insertar
+     */
     public void insertarInicio(Object element) {
         NodoArray nodo = new NodoArray(element);
         if (getSize() >= getMaxSize()) {
@@ -74,6 +77,10 @@ public class ListaArray<T>{
         }
     }
     
+/**
+ * Metodo para copiar el arreglo actual a uno nuevo 
+ * @return 
+ */
     public NodoArray[] copyArray() {
         NodoArray[] newArray = new NodoArray[array.length + 1];
         for (int i = 0; i < getArray().length; i++) {
@@ -82,6 +89,10 @@ public class ListaArray<T>{
         return newArray;
     }
     
+    /**
+     * Metodo para buscar un espacio vacío en el arreglo
+     * @return El índice del espacio vacío, o -1 si no hay espacios vacíos
+     */
     public int buscarEspacio(){
         for (int i = 0; i < getArray().length; i++) {
             if (array[i] == null) {
@@ -90,6 +101,12 @@ public class ListaArray<T>{
         }
         return -1;
     }
+    
+    /**
+     * Método para obtener el índice de un elemento en el arreglo
+     * @param elemento elemento buscado 
+     * @return el indice del elemento, 0-1 si no se encuentra en el arreglo 
+     */
     public int indiceDe(Object elemento) {
     for (int i = 0; i < getArray().length; i++) {
         if (getArray()[i].getElement().equals(elemento)) {
@@ -99,7 +116,10 @@ public class ListaArray<T>{
     return -1; // Devuelve -1 si el elemento no se encuentra en la lista
 }
 
-
+ /**
+     * Metodo para insertar un elemento en el arreglo
+     * @param element El elemento a insertar
+     */
     public void insertar(Object element) {
         NodoArray nodo = new NodoArray(element);
         if (getSize() >= getMaxSize()) {
@@ -121,12 +141,20 @@ public class ListaArray<T>{
         }
     }
 
-    
+    /**
+     * funcion para insertar un elemento en un índice específico del arreglo
+     * @param element El elemento a insertar
+     * @param index El índice donde se insertará el elemento
+     */
     public void insertarxIndice(T element, int index) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
+    /**
+     * funcion para eliminar el primer elemnto del arreglo 
+     * @return elemento eliminado, o null si el arreglo es vacio 
+     */
     public Object EliminarInicio() {
         if (isEmpty()) {
             System.out.println("La lista esta vacia");
@@ -141,7 +169,10 @@ public class ListaArray<T>{
         return null;
     }
 
-    
+    /**
+     * Método para eliminar el último elemento del arreglo.
+     * @return El elemento eliminado, o null si el arreglo está vacío.
+     */
     public Object EliminarFinal() {
         if (isEmpty()) {
             System.out.println("La lista esta vacia");
@@ -162,16 +193,27 @@ public class ListaArray<T>{
         return null;
     }
 
-    
+     /**
+     * metodo  para eliminar un elemento en un índice específico del arreglo
+     * @param index El índice del elemento a eliminar
+     * @return El elemento eliminado
+     */
     public Object EliminarxIndice(int index) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
+    /**
+     * metodo para verificar si es vacio el arreglo 
+     * @return verdadero si es vacio, falso si no
+     */
     public boolean isEmpty() {
         return getHead() == null;
     }
     
+    
+     /**
+     * Método para imprimir los elementos del arreglo.
+     */
     public void print() {
         NodoArray pointer = getArray()[getHead()];
         while (pointer != null) {
@@ -185,17 +227,57 @@ public class ListaArray<T>{
         }
     }
     
+    
+      /**
+     * Método para imprimir los elementos del arreglo en orden secuencial.
+     */
     public void printSecuencial() {
         for (int i = 0; i < getArray().length; i++) {
             System.out.println("[ "+ getArray()[i].getElement()+ " ]");
         }
     }
+    
+    /**
+     * Método para obtener el elemento en un índice específico del arreglo.
+     * @param indice El índice del elemento a obtener.
+     * @return El elemento en el índice especificado.
+     * @throws IndexOutOfBoundsException si el índice está fuera del rango del arreglo.
+     */
     public Object get(int indice) {
     if (indice < 0 || indice >= getArray().length) {
         throw new IndexOutOfBoundsException("Índice fuera de rango");
     }
     return getArray()[indice].getElement();
 }
+    public void vaciar(int n,ListaArray elementos){
+        for (int i = 0; i < n; i++) {
+            
+            
+        }
+    }
+    public void vaciar() {
     
+    for (int i = 0; i < getArray().length; i++) {
+        getArray()[i] = null;
+    }
+    size = 0;
+    setHead(null);
+} 
     
+    public boolean contiene(Object elemento) {
+    for (int i = 0; i < getArray().length; i++) {
+        if (getArray()[i] != null && getArray()[i].getElement().equals(elemento)) {
+            return true;
+        }
+    }
+    return false;
+}
+    
+    public ListaArray<T> copiar() {
+    ListaArray<T> copia = new ListaArray<>(this.getSize());
+    for (int i = 0; i < this.getSize(); i++) {
+        copia.insertar(this.get(i));
+    }
+    return copia;
+}
 }
