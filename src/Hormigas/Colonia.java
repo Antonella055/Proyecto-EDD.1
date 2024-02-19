@@ -15,18 +15,18 @@ import Interfaces.MenuSimulacion;
  */
 public class Colonia {
     
-    private ListaArray<Hormiga> hormigas;
+    private final ListaArray<Hormiga> hormigas;
     private double[][] feromonas;
     private double[][] distancias;
     
     // Asignados por el usuario
-    private double α;
-    private double β;
-    private double ρ;
-    private int ciudad_inicio;
-    private int ciudad_destino;
-    private int nro_ciclos;
-    private int nro_hormigas;
+    private final double α;
+    private final double β;
+    private final double ρ;
+    private final int ciudad_inicio;
+    private final int ciudad_destino;
+    private final int nro_ciclos;
+    private final int nro_hormigas;
 
     public Colonia() {
         MenuSimulacion datos = new MenuSimulacion();
@@ -50,7 +50,7 @@ public class Colonia {
 
     
     
-    private void Inicializar(){
+    public void Inicializar(){
         Archivo data= new Archivo();
          HashMap<String, ListaArray> relaciones = data.leerRelaciones();
          ListaArray<String> ciudades=data.obtCiudades(relaciones);
@@ -65,12 +65,6 @@ public class Colonia {
             }
         }
     }
-
-    public int getNro_hormigas() {
-        return nro_hormigas;
-    }
-    
-    
     
     public void Ejecutar(){
         for (int i = 0; i < nro_ciclos; i++) {
@@ -119,5 +113,8 @@ public class Colonia {
         }
         System.out.println("El camino mas corto es"+ caminoMasCorto);
         return caminoMasCorto;
+    }
+   public int getNro_hormigas() {
+        return nro_hormigas;
     }
 }

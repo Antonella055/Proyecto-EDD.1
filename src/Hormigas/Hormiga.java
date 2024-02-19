@@ -24,6 +24,14 @@ public class Hormiga {
         this.ciudades_visitadas.insertar(ciudad_Inicio);
     }
 
+  public boolean CaminoTransitado(int i,int j){ //caminos por donde la hormiga ya paso 
+      for (int k = 0; k < ciudades_visitadas.getSize() -1; k++) {
+          if (ciudades_visitadas.get(k).equals(i) && ciudades_visitadas.get(k+1).equals(i)){
+              return true;
+          }
+      }
+      return false;
+  }
   
   public double depositarFeromonas(int i,int j){
       double Q= 100.0; //cantidad total de feromonas que puede depositar una hormiga
@@ -89,7 +97,6 @@ public class Hormiga {
        public ListaArray<Integer> obtenerCamino() {
            return ciudades_visitadas.copiar();
        }
-       
        public double CalcularLongitudCamino(ListaArray<Integer> caminoHormiga ){ //el camino total que realizaria cada hormiga, hasta caer en calle ciega o su comida
            double longTotal=0.0;
            for (int i =0; i< caminoHormiga.getSize() -1; i++){
