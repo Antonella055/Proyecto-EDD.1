@@ -9,6 +9,7 @@ import Estructuras.ListaArray;
 import Interfaces.GrafoVisual;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -68,9 +69,7 @@ public class Grafo<E> {
              String idVertice = Integer.toString(vertice.valor);
             graph.addNode(idVertice);
             graph.getNode(idVertice).setAttribute("ui.label", idVertice);
-            graph.getNode(idVertice).setAttribute("ui.style", "text-alignment: under;");
-        
-            
+            graph.getNode(idVertice).setAttribute("ui.style", "text-alignment: under;"); 
     }
     
     /**
@@ -90,10 +89,10 @@ public class Grafo<E> {
     public void mostrarGrafo() {
         // Crea un visor de Swing para el grafo //arreglar
         System.setProperty("org.graphstream.ui", "swing");
-        Viewer viewer = graph.display();
+        Viewer viewer = graph.display(false);
         
         GrafoVisual frame=new GrafoVisual();
-        JPanel Panel= frame.getPanel();
+        JInternalFrame Panel= frame.getSubV();
         Panel.setLayout(new BorderLayout());
 
         ViewPanel viewPanel = (ViewPanel) viewer.getDefaultView();
@@ -102,9 +101,6 @@ public class Grafo<E> {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         viewer.enableAutoLayout();
-       
-            
-        
             }
     
 }

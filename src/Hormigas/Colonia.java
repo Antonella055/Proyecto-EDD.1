@@ -31,14 +31,17 @@ public class Colonia {
     public Colonia() {
         MenuSimulacion datos = new MenuSimulacion();
         
-        this.α = Double.parseDouble(datos.getImportanciaFeromona());
-        this.β = Double.parseDouble(datos.getGradoVisibilidadCiudad());
-        this.ρ = Double.parseDouble(datos.getFactorEvaporacion());
-        this.ciudad_inicio = Integer.parseInt((String) datos.getCiudadInicio());
-        this.ciudad_destino = Integer.parseInt((String) datos.getCiudadDestino());
-        this.nro_ciclos = Integer.parseInt(datos.getCiclos());
-        this.nro_hormigas = Integer.parseInt(datos.getHormigas());
+        this.α = datos.getFeromona();
+        this.β = datos.getVisibilidad();
+        this.ρ = datos.getEvaporacion();
         
+        this.ciudad_inicio = datos.getInicio();
+        this.ciudad_destino =datos.getDestino();
+        
+        this.nro_ciclos = datos.getCiclos();
+        this.nro_hormigas = datos.getHormigas();
+        
+        Inicializar();
         this.hormigas= new ListaArray(this.nro_hormigas);
         for (int i = 0; i < this.nro_hormigas; i++) {
             this.hormigas.insertar(new Hormiga(this.ciudad_inicio, this.feromonas, this.distancias));
@@ -47,7 +50,7 @@ public class Colonia {
 
     
     
-    public void Inicializar(){
+    private void Inicializar(){
         Archivo data= new Archivo();
          HashMap<String, ListaArray> relaciones = data.leerRelaciones();
          ListaArray<String> ciudades=data.obtCiudades(relaciones);
@@ -62,6 +65,12 @@ public class Colonia {
             }
         }
     }
+
+    public int getNro_hormigas() {
+        return nro_hormigas;
+    }
+    
+    
     
     public void Ejecutar(){
         for (int i = 0; i < nro_ciclos; i++) {
@@ -94,4 +103,21 @@ public class Colonia {
     }
    
 }
+    public ListaArray<Integer> ObtCaminoMasCorto(){
+        double longCaminoCorto= Double.MAX_VALUE;
+        ListaArray<Integer> caminoMasCorto=null;
+        
+        for (int i = 0; i < hormigas.getSize(); i++) {
+            Hormiga hormiga = (Hormiga) hormigas.get(i);
+            ListaArray<Integer> caminoHormiga= hormiga.obtenerCamino();
+            double longCamino= hormiga.CalcularLongitudCamino(caminoHormiga);
+            
+            if(longCamino < longCaminoCorto){
+                longCaminoCorto= longCamino;
+                caminoMasCorto= caminoHormiga;
+            }
+        }
+        System.out.println("El camino mas corto es"+ caminoMasCorto);
+        return caminoMasCorto;
+    }
 }

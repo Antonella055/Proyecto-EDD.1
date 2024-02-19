@@ -7,6 +7,7 @@ package Interfaces;
 import Estructuras.Archivo;
 import Estructuras.HashMap;
 import Estructuras.ListaArray;
+import Hormigas.Colonia;
 import Interfaces.segundarias.Definiciones;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -20,13 +21,27 @@ import javax.swing.JPanel;
  * @author Antonella
  */
 public class MenuSimulacion extends javax.swing.JFrame {
+   String ciclos;
+   String hormigas;
+   String Evaporacion;
+   String Feromona;
+   String Visibilidad;
+   
+   String Inicio;
+   String Destino;
 
-    /**
-     * Creates new form MenuSimulacion
-     */
     public MenuSimulacion() {
         initComponents();
-        
+        new Menu().simulacionEnProceso=true;
+       
+       ciclos = "";
+       hormigas = "";
+       Evaporacion = "";
+       Feromona = "";
+       Visibilidad = "";
+       Inicio = "";
+       Destino = "";
+       
        Archivo datos= new Archivo();
       HashMap<String, ListaArray> relaciones = datos.leerRelaciones();
        
@@ -35,8 +50,6 @@ public class MenuSimulacion extends javax.swing.JFrame {
             CiudadDestino.addItem((String) datos.obtCiudades(relaciones).get(i));
         }
     }
-
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -284,8 +297,8 @@ public class MenuSimulacion extends javax.swing.JFrame {
 
     private void ValorxDefectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValorxDefectoActionPerformed
         // TODO add your handling code here:
-        ImportanciaFeromona.setText("1");
-        GradoVisibilidadCiudad.setText("2");
+        ImportanciaFeromona.setText("1.0");
+        GradoVisibilidadCiudad.setText("2.0");
         FactorEvaporacion.setText("0.5");
         
     }//GEN-LAST:event_ValorxDefectoActionPerformed
@@ -300,43 +313,74 @@ public class MenuSimulacion extends javax.swing.JFrame {
         setVisible(false);
         System.out.println("Simulacion Iniciada");
     }
-        
-    Ciclos.getText();
-   Hormigas.getText();
-    ImportanciaFeromona.getText();
-  GradoVisibilidadCiudad.getText();
-    FactorEvaporacion.getText();
+      System.out.println("Antes de asignar: ");
+   ciclos=Ciclos.getText();
+   hormigas=Hormigas.getText();
+   Evaporacion= FactorEvaporacion.getText();
+   Feromona= ImportanciaFeromona.getText();
+   Visibilidad=GradoVisibilidadCiudad.getText();
+   
+   Inicio= (String) CiudadInicio.getSelectedItem();
+   Destino=(String) CiudadDestino.getSelectedItem();
+   System.out.println("Después de asignar: " );
     }//GEN-LAST:event_ContinuarActionPerformed
 
-    public String getCiclos() {
-        return Ciclos.getText();
+    public int getCiclos() {
+        if(!ciclos.isEmpty()){
+            return Integer.parseInt(ciclos);
+    }else{
+        return 20;
+    }}
+
+    public int getHormigas() {
+        if(!hormigas.isEmpty()){
+            return Integer.parseInt(hormigas);
+        }else{ 
+            return 10;
+        }
     }
 
-    public Object getCiudadDestino() {
-        return CiudadInicio.getSelectedItem();
+    public double getEvaporacion() {
+        if(!Evaporacion.isEmpty()){
+        return Double.parseDouble(Evaporacion);
+        }else{
+            return 0.5;
+        }
     }
 
-    public Object getCiudadInicio() {
-        return CiudadDestino.getSelectedItem();
+    public double getFeromona() {
+        if(!Feromona.isEmpty()){
+        return Double.parseDouble(Feromona);
+        }else{
+            return 1.0;
+        }
     }
 
-    public String getFactorEvaporacion() {
-        return FactorEvaporacion.getText();
+    public double getVisibilidad() {
+        if(!Visibilidad.isEmpty()){
+        return Double.parseDouble(Visibilidad);
+        }else{
+            return 2.0;
+        }
     }
 
-    public String getGradoVisibilidadCiudad() {
-        return  GradoVisibilidadCiudad.getText();
+    public int getInicio() {
+        if(!Inicio.isEmpty()){
+        return Integer.parseInt(Inicio);
+        }else{
+            return 1;
+        }
     }
 
-    public String getHormigas() {
-        return Hormigas.getText();
+    public int getDestino() {
+        if(!Destino.isEmpty()){
+        return Integer.parseInt(Destino);
+        }else{
+            return 7;
+        }
     }
 
-    public String getImportanciaFeromona() {
-        return  ImportanciaFeromona.getText();
-    }
-
-    
+  
     /**
      * @param args the command line arguments
      */

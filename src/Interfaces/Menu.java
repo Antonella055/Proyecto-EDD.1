@@ -9,6 +9,7 @@ import Estructuras.HashMap;
 import Estructuras.ListaArray;
 import Estructuras.Matriz;
 import Grafo.Grafo;
+import Hormigas.Colonia;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Menu extends javax.swing.JFrame {
     boolean archivoSeleccionado=false;
+    public boolean simulacionEnProceso=false;
     /**
      * Creates new form Menu_principal
      */
@@ -194,9 +196,11 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_addciudadActionPerformed
 
     private void CargargrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargargrafoActionPerformed
+       
+        if(simulacionEnProceso){
         GrafoVisual x =new GrafoVisual();
         x.setVisible(true);
-        
+        x.MostrarHormigas();
        Archivo a=new Archivo();
        HashMap<String, ListaArray> relaciones = a.leerRelaciones();
        ListaArray<String> ciudades= a.obtCiudades(relaciones);
@@ -223,8 +227,13 @@ public class Menu extends javax.swing.JFrame {
     x.modelo.addRow(rowData);
     
     
+    Colonia datos= new Colonia();
+    datos.Ejecutar();
 }
-      x.setModeloTabla(x.modelo);
+      x.setModeloTabla(x.modelo);}
+        else{
+            System.out.println("Error, al menos debe estar registrada una simulacion");
+        }
     }//GEN-LAST:event_CargargrafoActionPerformed
 
     private void CargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarArchivoActionPerformed
