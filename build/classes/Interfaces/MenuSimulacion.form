@@ -63,12 +63,12 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" pref="188" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="Ciclos" min="-2" pref="203" max="-2" attributes="0"/>
+                                  <Component id="Nrociclos" min="-2" pref="203" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel2" min="-2" pref="228" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="Hormigas" max="32767" attributes="0"/>
+                                  <Component id="NroHormigas" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -85,9 +85,9 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="ImportanciaFeromona" pref="87" max="32767" attributes="0"/>
-                                      <Component id="GradoVisibilidadCiudad" max="32767" attributes="0"/>
-                                      <Component id="FactorEvaporacion" max="32767" attributes="0"/>
+                                      <Component id="NroFeromona" pref="87" max="32767" attributes="0"/>
+                                      <Component id="NroGradoVisibilidadCiudad" max="32767" attributes="0"/>
+                                      <Component id="NroFactorEvaporacion" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -96,8 +96,8 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="CiudadInicio" pref="118" max="32767" attributes="0"/>
-                                      <Component id="CiudadDestino" max="32767" attributes="0"/>
+                                      <Component id="NroInicio" pref="118" max="32767" attributes="0"/>
+                                      <Component id="NroDestino" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -116,33 +116,33 @@
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
-                      <Component id="Ciclos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Nrociclos" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
-                      <Component id="Hormigas" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="NroHormigas" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Component id="ValorxDefecto" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="ImportanciaFeromona" min="-2" max="-2" attributes="0"/>
+                          <Component id="NroFeromona" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel6" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="CiudadInicio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="NroInicio" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="CiudadDestino" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="NroDestino" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="GradoVisibilidadCiudad" min="-2" max="-2" attributes="0"/>
+                              <Component id="NroGradoVisibilidadCiudad" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -152,7 +152,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <Component id="FactorEvaporacion" min="-2" max="-2" attributes="0"/>
+                              <Component id="NroFactorEvaporacion" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -296,35 +296,35 @@
             <Property name="text" type="java.lang.String" value="Antes de iniciar su simulacion, por favor ingrese los siguientes datos "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="Ciclos">
+        <Component class="javax.swing.JTextField" name="Nrociclos">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CiclosActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NrociclosActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="Hormigas">
+        <Component class="javax.swing.JTextField" name="NroHormigas">
         </Component>
-        <Component class="javax.swing.JTextField" name="ImportanciaFeromona">
+        <Component class="javax.swing.JTextField" name="NroFeromona">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="GradoVisibilidadCiudad">
+        <Component class="javax.swing.JTextField" name="NroGradoVisibilidadCiudad">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="FactorEvaporacion">
+        <Component class="javax.swing.JTextField" name="NroFactorEvaporacion">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FactorEvaporacionActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NroFactorEvaporacionActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="Definiciones">
@@ -341,7 +341,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DefinicionesMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="CiudadInicio">
+        <Component class="javax.swing.JComboBox" name="NroInicio">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
@@ -351,7 +351,7 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JComboBox" name="CiudadDestino">
+        <Component class="javax.swing.JComboBox" name="NroDestino">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>

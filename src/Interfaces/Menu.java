@@ -9,13 +9,18 @@ import Estructuras.HashMap;
 import Estructuras.ListaArray;
 import Estructuras.Matriz;
 import Grafo.Grafo;
+import Hormigas.Colonia;
+import Hormigas.Hormiga;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,6 +41,8 @@ public class Menu extends javax.swing.JFrame {
          SvGrafo.setEnabled(false);
          addciudad.setEnabled(false);
          delciudad.setEnabled(false);
+         
+        
          
     }
 
@@ -174,6 +181,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void newsimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newsimulacionActionPerformed
         // TODO add your handling code here:
+        Cargargrafo.setEnabled(true);
         new MenuSimulacion().setVisible(true);
     }//GEN-LAST:event_newsimulacionActionPerformed
 
@@ -194,37 +202,64 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_addciudadActionPerformed
 
     private void CargargrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargargrafoActionPerformed
-        GrafoVisual x =new GrafoVisual();
-        x.setVisible(true);
-        x.MostrarHormigas();
-       Archivo a=new Archivo();
-       HashMap<String, ListaArray> relaciones = a.leerRelaciones();
-       ListaArray<String> ciudades= a.obtCiudades(relaciones);
-       Matriz b= new Matriz();
-       int[][] matriz=b.Crear(relaciones, ciudades);
-       b.imprimirMatriz(matriz);
-       Grafo grafo=new Grafo();
-               grafo.construir(matriz);
-               grafo.mostrarGrafo();
- 
-     
-       
-         x.modelo=new DefaultTableModel();
-         x.modelo.addColumn("0");
-        for (int i = 0; i < ciudades.getSize(); i++) {
-            x.modelo.addColumn(ciudades.get(i));
-        }
-            for (int i = 0; i < matriz.length; i++) {
-            Object[] rowData= new Object[matriz[i].length+1];
-            rowData[0]=ciudades.get(i);
-            for (int j = 0; j < matriz[i].length; j++) {
-            rowData[j + 1] = matriz[i][j];
+        
+          try {
+              try (BufferedReader reader = new BufferedReader(new FileReader("informacionSimulacion.txt"))) {
+                  String linea;
+                  String[] valores = new String[4]; // Suponiendo que hay 4 líneas en el archivo
+                  for (int i = 0; i < 4; i++) {
+                      linea = reader.readLine();
+                      valores[i] = linea.trim();
+                  }         
+                  
+                  String SimulacionEnProceso = valores[3];
+                  if (SimulacionEnProceso.equals("SimulacionProcesada")) {
+                      GrafoVisual x =new GrafoVisual();
+                      x.setVisible(true);
+                      
+                      x.MostrarHormigas();
+                      
+                      Archivo a=new Archivo();
+                      HashMap<String, ListaArray> relaciones = a.leerRelaciones();
+                      ListaArray<String> ciudades= a.obtCiudades(relaciones);
+                      Matriz b= new Matriz();
+                      int[][] matriz=b.Crear(relaciones, ciudades);
+                      b.imprimirMatriz(matriz);
+                      Grafo grafo=new Grafo();
+                      Colonia colonia=new Colonia();
+                      grafo.construir(matriz);
+                      grafo.mostrarGrafo();
+                      ListaArray<Integer> camino = colonia.dijkstra(grafo);
+                      System.out.println("Recorrido Dijkstra");
+                      camino.print();
+                      grafo.resaltarCaminoMasCorto(camino);
+                      
+                      x.modelo=new DefaultTableModel();
+                      x.modelo.addColumn("0");
+                      for (int i = 0; i < ciudades.getSize(); i++) {
+                          x.modelo.addColumn(ciudades.get(i));
+                      }
+                      for (int i = 0; i < matriz.length; i++) {
+                          Object[] rowData= new Object[matriz[i].length+1];
+                          rowData[0]=ciudades.get(i);
+                          for (int j = 0; j < matriz[i].length; j++) {
+                              rowData[j + 1] = matriz[i][j];
+                          }
+                          x.modelo.addRow(rowData);
+                          
+                          
+                      }
+                      x.setModeloTabla(x.modelo);
+                  } 
+                  // Cerrar el BufferedReader
+              }
+    } catch (IOException e) {
+        System.out.println("Ocurrió un error al leer el archivo.");
+        e.printStackTrace();
     }
-    x.modelo.addRow(rowData);
-    
-    
-}
-      x.setModeloTabla(x.modelo);
+   
+       
+        
     }//GEN-LAST:event_CargargrafoActionPerformed
 
     private void CargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarArchivoActionPerformed
@@ -243,13 +278,11 @@ public class Menu extends javax.swing.JFrame {
         } 
          new Archivo().abrir();
          archivoSeleccionado=true;
-         
-         
          newsimulacion.setEnabled(true);
-         Cargargrafo.setEnabled(true);
          SvGrafo.setEnabled(true);
          addciudad.setEnabled(true);
          delciudad.setEnabled(true);
+        
     }//GEN-LAST:event_CargarArchivoActionPerformed
 
     /**

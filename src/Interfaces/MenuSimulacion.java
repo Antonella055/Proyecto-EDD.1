@@ -10,6 +10,10 @@ import Estructuras.ListaArray;
 import Interfaces.segundarias.Definiciones;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,33 +24,20 @@ import javax.swing.JPanel;
  * @author Antonella
  */
 public class MenuSimulacion extends javax.swing.JFrame {
-   String ciclos;
-   String hormigas;
-   String Evaporacion;
-   String Feromona;
-   String Visibilidad;
-   
-   String Inicio;
-   String Destino;
+    public boolean SimulacionEnProceso;
     /**
      * Creates new form MenuSimulacion
      */
     public MenuSimulacion() {
         initComponents();
-        
-        ciclos = "";
-       hormigas = "";
-       Evaporacion = "";
-       Feromona = "";
-       Visibilidad = "";
-       Inicio = "";
-       Destino = "";
+        this.SimulacionEnProceso=false;
+
        Archivo datos= new Archivo();
       HashMap<String, ListaArray> relaciones = datos.leerRelaciones();
        
         for (int i = 0; i < datos.obtCiudades(relaciones).getSize(); i++) {
-            CiudadInicio.addItem((String) datos.obtCiudades(relaciones).get(i));
-            CiudadDestino.addItem((String) datos.obtCiudades(relaciones).get(i));
+            NroInicio.addItem((String) datos.obtCiudades(relaciones).get(i));
+            NroDestino.addItem((String) datos.obtCiudades(relaciones).get(i));
         }
       
     }
@@ -73,14 +64,14 @@ public class MenuSimulacion extends javax.swing.JFrame {
         Atras = new javax.swing.JButton();
         Continuar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        Ciclos = new javax.swing.JTextField();
-        Hormigas = new javax.swing.JTextField();
-        ImportanciaFeromona = new javax.swing.JTextField();
-        GradoVisibilidadCiudad = new javax.swing.JTextField();
-        FactorEvaporacion = new javax.swing.JTextField();
+        Nrociclos = new javax.swing.JTextField();
+        NroHormigas = new javax.swing.JTextField();
+        NroFeromona = new javax.swing.JTextField();
+        NroGradoVisibilidadCiudad = new javax.swing.JTextField();
+        NroFactorEvaporacion = new javax.swing.JTextField();
         Definiciones = new javax.swing.JLabel();
-        CiudadInicio = new javax.swing.JComboBox<>();
-        CiudadDestino = new javax.swing.JComboBox<>();
+        NroInicio = new javax.swing.JComboBox<>();
+        NroDestino = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -140,20 +131,20 @@ public class MenuSimulacion extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel8.setText("Antes de iniciar su simulacion, por favor ingrese los siguientes datos ");
 
-        Ciclos.addActionListener(new java.awt.event.ActionListener() {
+        Nrociclos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CiclosActionPerformed(evt);
+                NrociclosActionPerformed(evt);
             }
         });
 
-        ImportanciaFeromona.setForeground(new java.awt.Color(102, 102, 102));
+        NroFeromona.setForeground(new java.awt.Color(102, 102, 102));
 
-        GradoVisibilidadCiudad.setForeground(new java.awt.Color(102, 102, 102));
+        NroGradoVisibilidadCiudad.setForeground(new java.awt.Color(102, 102, 102));
 
-        FactorEvaporacion.setForeground(new java.awt.Color(102, 102, 102));
-        FactorEvaporacion.addActionListener(new java.awt.event.ActionListener() {
+        NroFactorEvaporacion.setForeground(new java.awt.Color(102, 102, 102));
+        NroFactorEvaporacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FactorEvaporacionActionPerformed(evt);
+                NroFactorEvaporacionActionPerformed(evt);
             }
         });
 
@@ -189,11 +180,11 @@ public class MenuSimulacion extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(Ciclos, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Nrociclos, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Hormigas)))
+                                .addComponent(NroHormigas)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,17 +197,17 @@ public class MenuSimulacion extends javax.swing.JFrame {
                                     .addComponent(jLabel4))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ImportanciaFeromona, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                                    .addComponent(GradoVisibilidadCiudad)
-                                    .addComponent(FactorEvaporacion))
+                                    .addComponent(NroFeromona, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                                    .addComponent(NroGradoVisibilidadCiudad)
+                                    .addComponent(NroFactorEvaporacion))
                                 .addGap(46, 46, 46)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(CiudadInicio, 0, 118, Short.MAX_VALUE)
-                                    .addComponent(CiudadDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(NroInicio, 0, 118, Short.MAX_VALUE)
+                                    .addComponent(NroDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -228,28 +219,28 @@ public class MenuSimulacion extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Ciclos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Nrociclos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Hormigas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NroHormigas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addComponent(ValorxDefecto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(ImportanciaFeromona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(NroFeromona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CiudadInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(NroInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(CiudadDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(NroDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(GradoVisibilidadCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NroGradoVisibilidadCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(12, 12, 12)
@@ -257,7 +248,7 @@ public class MenuSimulacion extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
-                            .addComponent(FactorEvaporacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(NroFactorEvaporacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(Definiciones)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
@@ -279,13 +270,13 @@ public class MenuSimulacion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CiclosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CiclosActionPerformed
+    private void NrociclosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NrociclosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CiclosActionPerformed
+    }//GEN-LAST:event_NrociclosActionPerformed
 
-    private void FactorEvaporacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FactorEvaporacionActionPerformed
+    private void NroFactorEvaporacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NroFactorEvaporacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_FactorEvaporacionActionPerformed
+    }//GEN-LAST:event_NroFactorEvaporacionActionPerformed
 
     private void DefinicionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DefinicionesMouseClicked
         // TODO add your handling code here:
@@ -294,90 +285,47 @@ public class MenuSimulacion extends javax.swing.JFrame {
 
     private void AtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasActionPerformed
         // TODO add your handling code here:
+
         setVisible(false);
     }//GEN-LAST:event_AtrasActionPerformed
 
     private void ValorxDefectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValorxDefectoActionPerformed
         // TODO add your handling code here:
-        ImportanciaFeromona.setText("1");
-        GradoVisibilidadCiudad.setText("2");
-        FactorEvaporacion.setText("0.5");
+        NroFeromona.setText("1");
+        NroGradoVisibilidadCiudad.setText("2");
+        NroFactorEvaporacion.setText("0.5");
         
     }//GEN-LAST:event_ValorxDefectoActionPerformed
 
     private void ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContinuarActionPerformed
         // TODO add your handling code here:
-    if (Ciclos.getText().isEmpty()|| Hormigas.getText().isEmpty()   || ImportanciaFeromona.getText().isEmpty() ||  GradoVisibilidadCiudad.getText().isEmpty()  || FactorEvaporacion.getText().isEmpty()  ){
+    if (Nrociclos.getText().isEmpty()|| NroHormigas.getText().isEmpty()   || NroFeromona.getText().isEmpty() ||  NroGradoVisibilidadCiudad.getText().isEmpty()  || NroFactorEvaporacion.getText().isEmpty()  ){
         JOptionPane.showMessageDialog(null, "Se deben de llenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-    }else if (CiudadInicio.getSelectedItem() == CiudadDestino.getSelectedItem()){
+    }else if (NroInicio.getSelectedItem() == NroDestino.getSelectedItem()){
             JOptionPane.showMessageDialog(null, "La ciudad de Inicio no puede ser la misma que la de Destino", "Error", JOptionPane.ERROR_MESSAGE);
     }else{
         setVisible(false);
         System.out.println("Simulacion Iniciada");
     }
-        
-    ciclos=Ciclos.getText();
-   hormigas=Hormigas.getText();
-    Feromona=ImportanciaFeromona.getText();
-   Visibilidad=GradoVisibilidadCiudad.getText();
-   Evaporacion= FactorEvaporacion.getText();
+      try {
+        try (FileWriter writer = new FileWriter("informacionSimulacion.txt")) {
+            writer.write(NroInicio.getSelectedItem() +","+NroDestino.getSelectedItem()+"\n");  //NroIncio,NroDestino
+            writer.write(NroHormigas.getText() + "," +Nrociclos.getText() + "\n"); // Nro hormigas y nro ciclos
+            writer.write(NroFeromona.getText() + "," +NroGradoVisibilidadCiudad.getText() + ", " +NroFactorEvaporacion.getText() + "\n"); // Feromonas, Visibilidad, Evaporación
+            writer.write("SimulacionProcesada");
+        } // Inicio y destino en posición 0 y 1
+            System.out.println("Informacion Almacenada efectivamente");
+        } catch (IOException e) {
+            System.out.println("Ocurrió un error en almacenar la informacion.");
+            e.printStackTrace();
+        }
+    
     }//GEN-LAST:event_ContinuarActionPerformed
 
-    public int getCiclos() {
-        if(!ciclos.isEmpty()){
-            return Integer.parseInt(ciclos);
-    }else{
-        return 20;
-    }}
+    
 
-       public int getInicio() {
-        if(!Inicio.isEmpty()){
-        return Integer.parseInt(Inicio);
-        }else{
-            return 1;
-        }
-    }
-
-    public int getDestino() {
-        if(!Destino.isEmpty()){
-        return Integer.parseInt(Destino);
-        }else{
-            return 7;
-        }
-    }
-
-    public double getEvaporacion() {
-        if(!Evaporacion.isEmpty()){
-        return Double.parseDouble(Evaporacion);
-        }else{
-            return 0.5;
-        }
-    }
-
-     public double getVisibilidad() {
-        if(!Visibilidad.isEmpty()){
-        return Double.parseDouble(Visibilidad);
-        }else{
-            return 2.0;
-        }
-    }
-
-    public int getHormigas() {
-        if(!hormigas.isEmpty()){
-            return Integer.parseInt(hormigas);
-        }else{ 
-            return 10;
-        }
-    }
-
-   public double getFeromona() {
-        if(!Feromona.isEmpty()){
-        return Double.parseDouble(Feromona);
-        }else{
-            return 1.0;
-        }
-    }
-
+    
+    
     
     /**
      * @param args the command line arguments
@@ -416,15 +364,15 @@ public class MenuSimulacion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Atras;
-    private javax.swing.JTextField Ciclos;
-    private javax.swing.JComboBox<String> CiudadDestino;
-    private javax.swing.JComboBox<String> CiudadInicio;
     private javax.swing.JButton Continuar;
     private javax.swing.JLabel Definiciones;
-    private javax.swing.JTextField FactorEvaporacion;
-    private javax.swing.JTextField GradoVisibilidadCiudad;
-    private javax.swing.JTextField Hormigas;
-    private javax.swing.JTextField ImportanciaFeromona;
+    private javax.swing.JComboBox<String> NroDestino;
+    private javax.swing.JTextField NroFactorEvaporacion;
+    private javax.swing.JTextField NroFeromona;
+    private javax.swing.JTextField NroGradoVisibilidadCiudad;
+    private javax.swing.JTextField NroHormigas;
+    private javax.swing.JComboBox<String> NroInicio;
+    private javax.swing.JTextField Nrociclos;
     private javax.swing.JButton ValorxDefecto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

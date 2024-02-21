@@ -7,51 +7,92 @@ package Hormigas;
 import Estructuras.Archivo;
 import Estructuras.HashMap;
 import Estructuras.ListaArray;
+import Grafo.Grafo;
+import Grafo.Vertice;
 import Interfaces.MenuSimulacion;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  *
  * @author Antonella
  */
 public class Colonia {
-    
-    private final ListaArray<Hormiga> hormigas;
+    private ListaArray<Integer> caminoMasCorto;
+    private ListaArray<Hormiga> Hormigas;
     private double[][] feromonas;
     private double[][] distancias;
     
+    
     // Asignados por el usuario
-    private final double α;
-    private final double β;
-    private final double ρ;
-    private final int ciudad_inicio;
-    private final int ciudad_destino;
-    private final int nro_ciclos;
-    private final int nro_hormigas;
+    private double α;
+    private double β;
+    private double ρ;
+    private int ciudad_inicio;
+    private int ciudad_destino;
+    private int nro_ciclos;
+    private int nro_hormigas;
 
     public Colonia() {
+        
         MenuSimulacion datos = new MenuSimulacion();
+        try {
+        BufferedReader reader = new BufferedReader(new FileReader("informacionSimulacion.txt"));
+        String linea;
+        String[] valores = new String[3]; // Suponiendo que hay 3 líneas en el archivo
+
+        for (int i = 0; i < 3; i++) {
+            linea = reader.readLine();
+            valores[i] = linea.trim();
+        }
+
+        String[] inicioDestino = valores[0].split(",");
+        String[] hormigasCiclos = valores[1].split(",");
+        String[] feromonasVisibilidadEvaporacion = valores[2].split(",");
+
         
-        this.α = datos.getFeromona();
-        this.β = datos.getVisibilidad();
-        this.ρ = datos.getEvaporacion();
+        this.ciudad_inicio =  Integer.parseInt(inicioDestino[0]);
+        this.ciudad_destino = Integer.parseInt(inicioDestino[1]);
         
-        this.ciudad_inicio = datos.getInicio();
-        this.ciudad_destino =datos.getDestino();
+        this.nro_hormigas =Integer.parseInt(hormigasCiclos[0].trim());
+        this.nro_ciclos =Integer.parseInt(hormigasCiclos[1].trim());
         
-        this.nro_ciclos = datos.getCiclos();
-        this.nro_hormigas = datos.getHormigas();
+        this.α = Double.parseDouble(feromonasVisibilidadEvaporacion[0].trim());
+        this.β = Double.parseDouble(feromonasVisibilidadEvaporacion[1].trim());
+         this.ρ =Double.parseDouble (feromonasVisibilidadEvaporacion[2].trim());
+
+        reader.close(); // Cerrar el BufferedReader 
+    } catch (IOException e) {
+        System.out.println("Ocurrió un error al leer el archivo.");
+        e.printStackTrace();
+    }
+       
         
         Inicializar();
-        this.hormigas= new ListaArray(this.nro_hormigas);
-        for (int i = 0; i < this.nro_hormigas; i++) {
-            this.hormigas.insertar(new Hormiga(this.ciudad_inicio, this.feromonas, this.distancias));
+        Hormigas= new ListaArray<>(nro_hormigas);
+
+        for (int i = 0; i < nro_hormigas; i++) {
+            Hormiga hormiga=new Hormiga(this.ciudad_inicio, this.feromonas, this.distancias,this.ciudad_destino,this.α,this.β);
+            this.Hormigas.insertar(hormiga);
         }
+        
+    }
+
+    public int getCiudad_inicio() {
+        return ciudad_inicio;
+    }
+
+    public int getCiudad_destino() {
+        return ciudad_destino;
     }
 
     
     
+    
     public void Inicializar(){
         Archivo data= new Archivo();
+        
          HashMap<String, ListaArray> relaciones = data.leerRelaciones();
          ListaArray<String> ciudades=data.obtCiudades(relaciones);
         
@@ -66,55 +107,49 @@ public class Colonia {
         }
     }
     
-    public void Ejecutar(){
-        for (int i = 0; i < nro_ciclos; i++) {
-            for (int j = 0; j < nro_hormigas; j++) {
-                Hormiga hormiga=(Hormiga) hormigas.get(j);
-                while (!hormiga.HaAlcanzado(ciudad_destino)){
-                    int ciudad_siguiente= hormiga.seleccionarSiguienteCiudad(α, β);
-                    hormiga.mover(ciudad_siguiente);
-                }
+        public void ejecutarAntSystem(Grafo grafo) {
+           for (int ciclo = 0; ciclo < nro_ciclos; ciclo++) {
+               for (int h = 0; h < nro_hormigas; h++) {
+                   Hormiga hormiga = (Hormiga) Hormigas.get(h);
+                   hormiga.ConstruirSolucion(grafo);
                    
-                    }
-            
-            //actualizar feromonas
-            for (int j = 0; j <feromonas.length; j++) {
-                for (int k = 0; k < feromonas[j].length; k++) {
-                    feromonas[j][k] *= (1- ρ); //evaporacion
-                    
-                    for (int l = 0; l < hormigas.getSize(); l++) {
-                          Hormiga hormiga = (Hormiga) hormigas.get(l);
-                          feromonas[j][k] += hormiga.depositarFeromonas(j, k); //Incremento
-                    }
-                            
-                }
-            }
-            //Reiniciar para el siguiente ciclo 
-            for (int j = 0; j < hormigas.getSize(); j++) {
-                Hormiga hormiga = (Hormiga) hormigas.get(i);
-                hormiga.reiniciar(ciudad_inicio);
-            }
-    }
-   
+                   
+               }
+               actualizarFeromonas();
+               reiniciarHormigas();
+           }
+       
 }
-    public ListaArray<Integer> ObtCaminoMasCorto(){
-        double longCaminoCorto= Double.MAX_VALUE;
-        ListaArray<Integer> caminoMasCorto=null;
-        
-        for (int i = 0; i < hormigas.getSize(); i++) {
-            Hormiga hormiga = (Hormiga) hormigas.get(i);
-            ListaArray<Integer> caminoHormiga= hormiga.obtenerCamino();
-            double longCamino= hormiga.CalcularLongitudCamino(caminoHormiga);
-            
-            if(longCamino < longCaminoCorto){
-                longCaminoCorto= longCamino;
-                caminoMasCorto= caminoHormiga;
+        private void actualizarFeromonas(){
+            for (int i = 0; i < feromonas.length; i++) {
+                for (int j = 0; j < feromonas[i].length; j++) {
+                    feromonas[i][j] *= (1 - ρ); // Evaporación
+                    for (int k = 0; k < Hormigas.getSize(); k++) {
+                        Hormiga hormiga= (Hormiga) Hormigas.get(k);
+                        feromonas[i][j] += hormiga.depositarFeromonas(i, j);
+                    }
+            }
+                
             }
         }
-        System.out.println("El camino mas corto es"+ caminoMasCorto);
-        return caminoMasCorto;
+        
+    private void reiniciarHormigas(){
+        for (int i = 0; i < 10; i++) {
+            Hormiga hormiga =(Hormiga) Hormigas.get(i);
+            hormiga.reiniciar(ciudad_inicio);
+        }
     }
+        
+        
+
    public int getNro_hormigas() {
         return nro_hormigas;
     }
+   public ListaArray<Integer> dijkstra(Grafo grafo) {
+        // Asume que la hormiga 0 es la que va a realizar el camino
+        Hormiga hormiga = (Hormiga) Hormigas.get(0);
+        return grafo.dijkstra(hormiga.ciudadActual, hormiga.ciudad_destino);
+    }
+   
+
 }

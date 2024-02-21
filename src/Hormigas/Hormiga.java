@@ -4,26 +4,51 @@
  */
 package Hormigas;
 
+import Estructuras.Archivo;
+import Estructuras.HashMap;
 import Estructuras.ListaArray;
+import Grafo.Arista;
+import Grafo.Grafo;
+import Grafo.Vertice;
 
 /**
  *
  * @author Antonella
  */
 public class Hormiga {
-    private int ciudadActual;
+    public int ciudadActual;
+    public int ciudad_destino;
     private ListaArray<Integer> ciudades_visitadas;
+    private ListaArray<Arista> camino;
+    
+    private double β;
+    private double α;
+    
     private double[][] feromonas;
     private double[][] distancias;
 
-    public Hormiga(int ciudad_Inicio, double[][] feromonas, double[][] distancias) {
+    public Hormiga(int ciudad_Inicio, double[][] feromonas, double[][] distancias, int ciudad_destino,double α, double β) {
         this.ciudadActual = ciudad_Inicio;
         this.feromonas = feromonas;
         this.distancias = distancias;
+        this.α = α; 
+        this.β = β; 
+        this.ciudad_destino = ciudad_destino;
         this.ciudades_visitadas = new ListaArray(10);
         this.ciudades_visitadas.insertar(ciudad_Inicio);
     }
-
+   
+     public void ConstruirSolucion(Grafo grafo){
+            Vertice actual=grafo.getVertice(ciudadActual);
+            while(actual.getValor() != ciudad_destino){
+                int siguiente= seleccionarSiguienteCiudad(actual,grafo);
+                mover(siguiente);
+                actual = grafo.getVertice(siguiente);
+            }
+        }
+   
+    
+    
   public boolean CaminoTransitado(int i,int j){ //caminos por donde la hormiga ya paso 
       for (int k = 0; k < ciudades_visitadas.getSize() -1; k++) {
           if (ciudades_visitadas.get(k).equals(i) && ciudades_visitadas.get(k+1).equals(i)){
@@ -41,6 +66,8 @@ public class Hormiga {
        return feromonasDepositadas;
       
   }
+  
+  
     public double DistanciaTotal(){
         double distanciaTotal=0.0;
         
@@ -68,16 +95,17 @@ public class Hormiga {
            this.ciudades_visitadas.insertar(ciudad_inicio);
        }
        
-       public int seleccionarSiguienteCiudad(double α, double β){
-           double[] probabilidades= new double[distancias.length];
-           double sumaProbabilidades= 0.0;
-           
-           for (int i = 0; i < distancias.length; i++) {
-               if(!ciudades_visitadas.contiene(i)){
-                   probabilidades[i]= Math.pow(feromonas[ciudadActual][i],α) *Math.pow(1.0 / distancias[ciudadActual][i], β);
-                   sumaProbabilidades += probabilidades[i];
-               }
-           }
+     
+    public int seleccionarSiguienteCiudad(Vertice actual, Grafo grafo) {
+        double[] probabilidades = new double[grafo.getNumeroVertices()];
+        double sumaProbabilidades = 0.0;
+
+        for (int i = 0; i < grafo.getNumeroVertices(); i++) {
+            if (!ciudades_visitadas.contiene(i)) {
+                probabilidades[i] = Math.pow(feromonas[ciudadActual][i], α) * Math.pow(1.0 / distancias[ciudadActual][i], β);
+                sumaProbabilidades += probabilidades[i];
+            }
+        }
            
            for (int i = 0; i < probabilidades.length; i++) {
                probabilidades[i] /= sumaProbabilidades;
@@ -95,15 +123,19 @@ public class Hormiga {
        }
        
        public ListaArray<Integer> obtenerCamino() {
-           return ciudades_visitadas.copiar();
+           return ciudades_visitadas;
        }
        public double CalcularLongitudCamino(ListaArray<Integer> caminoHormiga ){ //el camino total que realizaria cada hormiga, hasta caer en calle ciega o su comida
+           Archivo a=new Archivo();
+       HashMap<String, ListaArray> relaciones = a.leerRelaciones();
+       ListaArray<String> ciudades= a.obtCiudades(relaciones);
+           
            double longTotal=0.0;
            for (int i =0; i< caminoHormiga.getSize() -1; i++){
                 int ciudadactual = (int) caminoHormiga.get(i);
                 int ciudadSiguiente = (int) caminoHormiga.get(i + 1);
-                
-                longTotal += distancias[ciudadActual][ciudadSiguiente];
+               
+                longTotal += distancias[ciudadactual][ciudadSiguiente];
 
            }
            return longTotal;
